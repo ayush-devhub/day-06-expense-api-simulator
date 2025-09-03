@@ -35,8 +35,7 @@ public class ExpenseController {
         LocalDate date = LocalDate.parse(splits[3]); // expense date
         String description = splits[4];
 
-        String[] idPath = userIdPath.split("/");
-        int userId = Integer.parseInt(idPath[1]); // owning user id
+        int userId = Integer.parseInt(userIdPath); // owning user id
 
         expenseService.createExpense(userId, id, category, amount, date, description);
         System.out.println("201 Created: Expense " + id + " for user " + userId);
@@ -48,7 +47,7 @@ public class ExpenseController {
      */
     public void handleListForUser(String userIdPath) {
         String[] idPath = userIdPath.split("/");
-        int userId = Integer.parseInt(idPath[1]);
+        int userId = Integer.parseInt(idPath[2]);
 
         List<Expense> expenseList = expenseService.listExpensesByUser(userId);
         System.out.println("200 OK");
@@ -62,7 +61,7 @@ public class ExpenseController {
      */
     public void handleDeleteExpense(String expenseIdPath) {
         String[] expenseIdSplits = expenseIdPath.split("/");
-        int expenseId = Integer.parseInt(expenseIdSplits[1]);
+        int expenseId = Integer.parseInt(expenseIdSplits[2]);
 
         if (expenseService.deleteExpense(expenseId)) {
             System.out.println("200 OK: Expense id " + expenseId + " deleted.");
@@ -70,6 +69,10 @@ public class ExpenseController {
             System.out.println("404 Not Found: Expense id " + expenseId + " not found.");
         }
 
+    }
+
+    public ExpenseService getExpenseService() {
+        return expenseService;
     }
 
     /**

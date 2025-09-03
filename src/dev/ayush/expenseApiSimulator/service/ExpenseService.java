@@ -67,4 +67,8 @@ public class ExpenseService {
         }
         return totalExpense;
     }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
 }

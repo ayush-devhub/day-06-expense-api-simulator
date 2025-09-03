@@ -67,4 +67,8 @@ public class UserController {
             System.out.println("404 Not Found: User" + idPath + " not found.");
         }
     }
+
+    public UserService getUserService() {
+        return userService;
+    }
 }
